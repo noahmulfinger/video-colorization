@@ -1,12 +1,12 @@
 clear all;
 
-% g_name='00037490.png';
-% c_name='00037490_col.png';
-% out_name='00037490_res.png';
+g_name='00019225.png';
+c_name='00019225_col.png';
+out_name='00019225_res.png';
 
-g_name='example.bmp';
-c_name='example_marked_alt.bmp';
-out_name='example_res.bmp';
+% g_name='example.bmp';
+% c_name='example_marked_alt.bmp';
+% out_name='example_res.bmp';
 
 %set solver=1 to use a multi-grid solver 
 %and solver=2 to use an exact matlab "\" solver
