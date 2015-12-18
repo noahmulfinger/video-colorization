@@ -2,12 +2,13 @@ close all
 clear all
 input_dir = 'medium-sample/';
 file_ext = 'png';
-file_names = dir([input_dir '*.' file_ext]);
+files = dir([input_dir '*.' file_ext]);
 
 
 
 %% Get set of images for each scene (each column is a scene)
-scenes = separate_scenes(input_dir, file_names);
+[scenes, scene_sizes] = separate_scenes(input_dir, files);
+scene_sizes
 
 disp('Number of scenes:')
 num_scenes = size(scenes, 2)
@@ -15,50 +16,42 @@ max_imgs_scene = size(scenes, 1);
 
 
 %% Get image in center of each scene
-images_col = [];
+images_to_col = [];
 
 for i = 1:num_scenes
-    first_image = scenes(1,i);
-    second_image = scenes(1,i);
-    k = strfind(char(second_image), '.png');
+%     first_file = scenes(1,i);
+%     second_file = scenes(scene_sizes(i),i);
     
-    counter = 1;
-    while ~isempty(second_image{1}) && counter < max_imgs_scene
-        counter = counter + 1;
-        second_image = scenes(counter,i);
-    end
-    second_image = scenes(counter-1,i);
-    
-    first_image = char(first_image);
-    first_val = str2num(first_image(1:end-4));
-    second_image = char(second_image);
-    second_val = str2num(second_image(1:end-4));
-    
-    mid_val = floor(first_val + (second_val - first_val) / 2);
-    img = ['0000' num2str(mid_val) '.png'];
-    images_col = [images_col; img];
-    
+    mid_file = scenes(floor(scene_sizes(i)/2),i);
+    images_to_col = [images_to_col; mid_file];
     
 end
 
 %% List these scenes as ones that need to be colorized
 %List of images to colorize
-images_col
+for file = images_to_col
+    file.name
+end
 disp('Colorize the above images in an image editor. Label them <file_name>_scr.png and store in root dir')
 pause
 
 %% Colorize each image based on user scribbles, then apply to each scene
-for i = 1:size(images_col,1)
-    img = images_col(i,:);
+for i = 1:size(images_to_col,1)
+    img = images_to_col(i).name;
     img_scr = [img(1:end-4) '_scr.png'];
     
-    img = imread(img);
-    img_scr = imread(img_col);
+    img = imread([input_dir img]);
+    img_scr = imread(img_scr);
     
-    img_col = colorizeFun(img, img_scr);
+    % Colorization by optimization
+    img_col = colorize_opt(img, img_scr);
     
-    % Do colorization by example for each scene using img_col as example
-    for j = scenes(:,i)
-
+    
+    % Colorization by example
+    for j = 1:scene_sizes(i)
+        targets{j} = imread([input_dir scenes(j,i).name]);
     end
+    
+    results = colorize_ex(img_col, targets);
+      
 end

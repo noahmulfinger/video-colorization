@@ -1,4 +1,4 @@
-function [nI]=colorizeFun(gI,cI)
+function [nI]=colorize_opt(gI,cI)
 
     %gI=double(imread(g_name))/255;
     %cI=double(imread(c_name))/255;
