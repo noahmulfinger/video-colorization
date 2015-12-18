@@ -21,14 +21,14 @@ scene_edges = [x_name ' ' y_name];
 for i = 1:(num_files-1)
     value = ssd(X,Y);
     if value < 1000
-        diffs(i) = value;
+%         diffs(i) = value;
     else
-        diffs(i) = value;
+%         diffs(i) = value;
         scene_edges = [scene_edges; x_name ' ' y_name];
         
     end
     
-    fprintf('ssd for %s and %s is %f.\n',x_name, y_name, diffs(i));
+%     fprintf('ssd for %s and %s is %f.\n',x_name, y_name, diffs(i));
 
     if (i+1) ~= num_files
         if mod(i,2) == 1
@@ -45,6 +45,7 @@ end
     
 z = 1:num_files;
 plot(z, diffs)
+line([0 1200], [1000 1000]);
 % ylim([-1 2])
 scene_edges
 

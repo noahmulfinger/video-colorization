@@ -1,8 +1,6 @@
-function [nI]=colorizeFun(gI,cI,solver)
+function [nI]=colorizeFun(gI,cI)
 
-if ~exist('solver','var')
-    solver=1;
-end
+solver=2;
 
 
 
@@ -27,12 +25,8 @@ id=1; jd=1;
 colorIm=colorIm(id:iu,jd:ju,:);
 ntscIm=ntscIm(id:iu,jd:ju,:);
 
-if (solver==1)
-  nI=getVolColor(colorIm,ntscIm,[],[],[],[],5,1);
-  nI=ntsc2rgb(nI);
-else
-  nI=getColorExact(colorIm,ntscIm);
-end
+nI=getColorExact(colorIm,ntscIm);
+
 
 %figure, imshow(nI)
 
