@@ -1,12 +1,19 @@
-function [nI]=colorizeFun(gI,cI)
+clear all;
 
-solver=2;
+g_name='00019225.png';
+c_name='00019225_col.png';
+out_name='00019225_res.png';
 
+g_name='example.bmp';
+c_name='example_marked_alt.bmp';
+out_name='example_res.bmp';
 
+%set solver=1 to use a multi-grid solver 
+%and solver=2 to use an exact matlab "\" solver
+solver=2; 
 
-
-%gI=double(imread(g_name))/255;
-%cI=double(imread(c_name))/255;
+gI=double(imread(g_name))/255;
+cI=double(imread(c_name))/255;
 colorIm=(sum(abs(gI-cI),3)>0.01);
 colorIm=double(colorIm);
 
@@ -25,12 +32,16 @@ id=1; jd=1;
 colorIm=colorIm(id:iu,jd:ju,:);
 ntscIm=ntscIm(id:iu,jd:ju,:);
 
-nI=getColorExact(colorIm,ntscIm);
+if (solver==1)
+  nI=getVolColor(colorIm,ntscIm,[],[],[],[],5,1);
+  nI=ntsc2rgb(nI);
+else
+  nI=getColorExact(colorIm,ntscIm);
+end
 
+figure, imshow(nI)
 
-%figure, imshow(nI)
-
-%imwrite(nI,out_name)
+imwrite(nI,out_name)
    
   
 
