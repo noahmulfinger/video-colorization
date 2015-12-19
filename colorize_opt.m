@@ -1,7 +1,7 @@
-function [nI]=colorize_opt(gI,cI)
+function [out_name]=colorize_opt(g_name,c_name)
 
-    %gI=double(imread(g_name))/255;
-    %cI=double(imread(c_name))/255;
+    gI=double(imread(g_name))/255;
+    cI=double(imread(c_name))/255;
     colorIm=(sum(abs(gI-cI),3)>0.01);
     colorIm=double(colorIm);
 
@@ -21,3 +21,5 @@ function [nI]=colorize_opt(gI,cI)
     ntscIm=ntscIm(id:iu,jd:ju,:);
 
     nI=getColorExact(colorIm,ntscIm);
+    out_name = [g_name(1:end-4) '_col.png'];
+    imwrite(nI, out_name);

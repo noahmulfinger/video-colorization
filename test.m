@@ -33,12 +33,13 @@
 %  first_image
 %  second_image
 % 
+input_dir = '/noah/';
 
-
-a = [ 1 ; 3 ;4; 5; 6; 8; 7];
-for x = a'
-    x
+for j = 1:5
+    t{j} = [input_dir num2str(j)];
 end
+
+t
 
 
 
