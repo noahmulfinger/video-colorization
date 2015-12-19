@@ -31,7 +31,7 @@ end
 for file = images_to_col
     fprintf('%s\n', file.name);
 end
-disp('Colorize the above images in an image editor. Label them <file_name>_scr.png and store in root dir')
+disp('Colorize the above images in an image editor. Label them <file_name>_scr.png and store in root dir, then press ENTER')
 pause
 
 %% Colorize each image based on user scribbles, then apply to each scene
