@@ -68,9 +68,10 @@ else
              end
          end
      end
-    rslt=ycbcr2rgb(nimage)
-    figure,imshow(uint8(imt));
-    figure,imshow(uint8(rslt));
+    rslt=ycbcr2rgb(nimage);
+%     figure,imshow(uint8(imt));
+%     figure,imshow(uint8(rslt));
+    imwrite(rslt, [img1(1:end-4) '_col.png'])
     R=uint8(rslt);
     toc
 end

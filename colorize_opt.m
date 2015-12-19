@@ -1,6 +1,5 @@
-function [out_name]=colorize_opt(g_name,c_name)
-
-    gI=double(imread(g_name))/255;
+function [out_name]=colorize_opt(input_dir, g_name,c_name)
+    gI=double(imread([input_dir g_name]))/255;
     cI=double(imread(c_name))/255;
     colorIm=(sum(abs(gI-cI),3)>0.01);
     colorIm=double(colorIm);

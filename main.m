@@ -31,7 +31,7 @@ end
 for file = images_to_col
     fprintf('%s\n', file.name);
 end
-disp('Colorize the above images in an image editor. Label them <file_name>_scr.png and store in root dir, then press ENTER')
+disp('Colorize the above images in an image editor them <file_name>_scr.png and store in root dir, then press ENTER')
 pause
 
 %% Colorize each image based on user scribbles, then apply to each scene
@@ -43,14 +43,14 @@ for i = 1:size(images_to_col,1)
 %     img_scr = imread(img_scr);
     
     % Colorization by optimization
-    img_col = colorize_opt([input_dir img], img_scr);
+    img_col = colorize_opt(input_dir, img, img_scr);
 
     
     % Colorization by example
     for j = 1:scene_sizes(i)
-        targets{j} = [input_dir scenes(j,i).name];
+        targets{j} = scenes(j,i).name;
     end
     
-    results = colorize_ex(img_col, targets);
+    results = colorize_ex(input_dir, img_col, targets);
       
 end
