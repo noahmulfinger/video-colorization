@@ -19,8 +19,7 @@ function R=gray2rgb(img1,img2)
 % img1 - Source Image  (gray image)                                                                                                        
 % img2 - Selected color image for coloring the gray image. 
 tic
-clc;
-warning off;
+R = [];
 imt=imread(img1);
 ims=imread(img2);
 [sx sy sz]=size(imt);
@@ -53,7 +52,7 @@ else
     dx2=(dx2*255)/(255-d2);
     [mx,my,mz]=size(dx2);
 %Luminance Comparison
-    disp('Please wait..................');
+% %     disp('Please wait..................');
     for i=1:mx
         for j=1:my
              iy=dx2(i,j);
@@ -69,9 +68,11 @@ else
          end
      end
     rslt=ycbcr2rgb(nimage);
-%     figure,imshow(uint8(imt));
-%     figure,imshow(uint8(rslt));
-    imwrite(rslt, [img1(1:end-4) '_col.png'])
+    
+%     imwrite(rslt, [img2(1:end-4) '_col.png'])
     R=uint8(rslt);
+%     figure,imshow(uint8(imt));
+%     figure,imshow(R);
+    imwrite(R, [img1(1:end-4) '_col.png'])
     toc
 end
